@@ -1,0 +1,104 @@
+.canvas-node-container {
+  border-width: 0.1px;
+}
+
+.cm-contentContainer {
+  padding-bottom: 500px;
+}
+
+.is-popout-window .canvas-controls,
+.is-popout-window .canvas-card-menu {
+  display: none;
+}
+
+.is-focused.canvas-node .canvas-node-container {
+  border-width: 0.1px;
+  border-color: rgba(128, 128, 128, 0.459);
+}
+.canvas-wrapper {
+  --shadow-stationary: none;
+}
+
+.canvas-menu {
+  display: none;
+}
+
+.is-popout-window .workspace-tab-header-container {
+  display: none !important;
+}
+
+.cm-scroller {
+  /* padding: 22px !important; */
+}
+
+.markdown-source-view .cm-fold-indicator {
+  /* z-index: 2; */
+  /* display: block !important; */
+}
+
+.view-header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(240, 248, 255, 0);
+  opacity: 50%;
+}
+
+.view-header-nav-buttons,
+.view-actions {
+  display: none;
+}
+
+.is-popout-window .view-header {
+  display: none !important;
+}
+
+.titlebar-button-container {
+  display: none !important;
+}
+
+.is-popout-window .titlebar {
+  -webkit-app-region: drag !important;
+}
+
+body.is-popout-window
+  > div.app-container
+  > div
+  > div
+  > div
+  > div.workspace-split.mod-horizontal
+  > div:nth-child(4) {
+  flex-grow: 5 !important;
+}
+
+html {
+  outline: none !important;
+}
+
+.stopwatch-time {
+  display: flex;
+  justify-content: center !important;
+  margin: -15px;
+  margin-left: 0px;
+  margin-top: -18px;
+  transform: scale(0.8);
+}
+
+.stopwatch-time ~ button {
+  position: absolute;
+  border: none;
+  box-shadow: none;
+  margin: 0 5px;
+  font-weight: 400;
+  font-family: oxygen;
+  transform: scale(1.2);
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.stopwatch-time + button + button {
+  right: 0;
+}
+
+.stopwatch-time + button {
+  left: 0;
+}
