@@ -1,0 +1,20 @@
+@use "option" as *;
+
+@mixin NativeMenu() {
+  @include Option("widget.macos.native-context-menus", "widget.gtk.native-context-menus") {
+    @content;
+  }
+}
+
+@mixin NativeMenuPopup() {
+  menupopup:is(#historyMenuPopup, #bookmarksMenuPopup),
+  menupopup:not([placespopup="true"]) {
+    @content;
+  }
+}
+
+@mixin Win10_NativeMenu() {
+  @media not (-moz-windows-non-native-menus) {
+    @content;
+  }
+}
