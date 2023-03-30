@@ -161,8 +161,11 @@
       };
       rstudio-with-my-pkgs = rstudioWrapper.override {
         packages = with rPackages; 
-          [ pandoc skimr ggplot2 dplyr tidyverse rmarkdown knitr ];
+          [ VIM  pandoc skimr ggplot2 dplyr tidyverse rmarkdown knitr ];
        };
+      my-python-packages = ps: with ps; [
+        pandas
+      ];
     in
    [
   #syspkgs
@@ -170,6 +173,7 @@
     wget
     texlive.combined.scheme-full
     falkon
+    (python3.withPackages my-python-packages)
     pandoc
     rofi
     fd
