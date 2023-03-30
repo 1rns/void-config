@@ -153,14 +153,29 @@
   
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs;
+    let
+      r-with-my-pkgs = rWrapper.override {
+        packages = with rPackages;
+        [ pandoc skimr tidyverse ggplot2 dplyr rmarkdown knitr ];
+      };
+      rstudio-with-my-pkgs = rstudioWrapper.override {
+        packages = with rPackages; 
+          [ pandoc skimr ggplot2 dplyr tidyverse rmarkdown knitr ];
+       };
+    in
+   [
   #syspkgs
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    texlive.combined.scheme-full
+    falkon
+    pandoc
     rofi
     fd
     dmenu
     fzf
+    libreoffice
     nim
     gparted
     sddm-kcm
@@ -174,6 +189,8 @@
     helix
     git
     dash
+    r-with-my-pkgs
+    rstudio-with-my-pkgs
     neofetch
     firefox
     vscodium
