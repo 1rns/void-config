@@ -161,7 +161,7 @@
       };
       rstudio-with-my-pkgs = rstudioWrapper.override {
         packages = with rPackages; 
-          [ VIM  pandoc skimr ggplot2 dplyr tidyverse rmarkdown knitr ];
+          [ quarto patchwork visdat simputation VIM  pandoc skimr ggplot2 dplyr tidyverse rmarkdown knitr ];
        };
       my-python-packages = ps: with ps; [
         pandas
@@ -197,6 +197,7 @@
     rstudio-with-my-pkgs
     neofetch
     firefox
+    vivaldi
     vscodium
     mpv
     bitwarden

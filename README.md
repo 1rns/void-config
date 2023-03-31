@@ -8,6 +8,7 @@
 - [ ] unify keybinds across most commonly used programs
   - [ ] change helix keybinds
   - [ ] move settings to vscodium
+  - [ ] vivaldi
 - [ ] package uhk-agent
 - [ ] kde theming
   - [ ] configure window manager (nimdow)
