@@ -1,0 +1,69 @@
+.markdown-preview-view hr {
+  margin-block-start: 1.5em;
+  margin-block-end: 1.5em;
+  border-image-source: none;
+  border-bottom: 1px solid rgb(43, 43, 43);
+}
+
+.markdown-preview-view hr::after {
+  display: none;
+}
+
+.internal-link {
+  background-image: none;
+  text-decoration-line: underline !important;
+}
+
+.theme-dark {
+  --background-primary: rgb(22, 22, 22);
+  --background-primary-alt: none;
+  --background-secondary: rgb(19, 19, 19);
+  --background-secondary-alt: none;
+}
+
+.clickable-icon.side-dock-ribbon-action {
+  opacity: 15% !important;
+}
+
+.status-bar {
+  color: rgb(61, 61, 61);
+}
+
+.side-dock-ribbon-tab,
+.side-dock-ribbon-action {
+  color: rgb(119, 119, 119);
+}
+
+.theme-dark {
+  --background-primary-alt: rgb(22, 22, 22);
+}
+
+/* graph */
+.graph-view.color-fill {
+  color: #f1e6fe !important;
+}
+
+.graph-view.color-fill-highlight {
+  color: #ffb3b4 !important;
+}
+
+.graph-view.color-line-highlight {
+  color: #ff1418 !important;
+}
+
+.theme-dark .graph-view.color-fill-tag {
+  color: #f1e6fe !important;
+}
+
+.theme-dark .graph-view.color-fill-unresolved {
+  color: #f1e6fe !important;
+  opacity: 0.5;
+}
+
+purplegraph.css Displaying purplegraph.css. .graph-view.color-line {
+  color: #222222 !important;
+}
+
+.cm-s-obsidian div.HyperMD-codeblock-begin-bg:before {
+  background-color: inherit;
+}

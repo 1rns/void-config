@@ -1,0 +1,78 @@
+@media print {
+    h1:after, h3:after, h2:after, h4:after, h5:after, h6:after{
+       content: "";
+      display: block;
+      height: 100px;
+      margin-bottom: -100px;
+      }	
+  }
+
+  
+  @media print {
+    .theme-dark {
+  /*     --highlight-mix-blend-mode: darken; */
+    }
+  }
+  
+  @media print {
+  /* hide tag bg clr also */
+  /* page-break-inside: avoid !important; */
+    html,
+    body {
+      padding: 0 !important;
+      overflow: auto !important;
+      height: auto !important;
+      background-color: var(--background-primary) !important;
+    }
+  
+    .callout {
+      page-break-after: auto !important;
+    }
+    
+    iframe,
+    .titlebar,
+    .app-container,
+    .progress-bar,
+    .popover {
+      display: none !important;
+    }
+    body > :not(.print) {
+      display: none !important;
+    }
+    .print .markdown-preview-view {
+      -webkit-print-color-adjust: exact;
+  /*     color: initial; */
+        background-color: var(--background-primary) !important;
+    }
+    .print .markdown-preview-view mark {
+  /*     color: initial; */
+    }
+    .print .markdown-preview-view .frontmatter-container {
+  /*     display: none; */
+    }
+    hr:not(div .cm-line) {
+      /* page-break-after:always !important; */
+    }
+    .print .markdown-preview-view .markdown-embed-content {
+      max-height: none;
+      overflow: visible;
+    }
+    .print .markdown-preview-view .callout-content {
+      display: inherit !important;
+    }
+    .print .dynamic-toc {
+      height: 100vh;
+      display: grid;
+      place-items: center;
+    }
+    .print .external-link {
+  /*     background: none; */
+      padding-right: 0;
+    }
+    * {
+      text-shadow: none !important;
+    }
+    webview {
+      display: none;
+    }
+  }
