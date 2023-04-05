@@ -127,6 +127,12 @@
   # NVIDIA
   services.xserver.videoDrivers = [ "modesetting" ];
   #hardware.opengl.enable = true;
+
+  services.udev.extraRules = ''
+    SUBSYSTEM=="input", GROUP="input", MODE="0666"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="612[0-7]", MODE:="0666", GROUP="plugdev"
+    KERNEL=="hidraw*", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="612[0-7]", MODE="0666", GROUP="plugdev"
+    '';
   
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -165,12 +171,18 @@
        };
       my-python-packages = ps: with ps; [
         pandas
+        nltk
+        openai
       ];
     in
    [
   #syspkgs
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    polkit
+    uhk-agent
+    lsof
+    file
     texlive.combined.scheme-full
     falkon
     (python3.withPackages my-python-packages)
@@ -180,30 +192,49 @@
     dmenu
     fzf
     libreoffice
-    nim
     gparted
     sddm-kcm
     libsForQt5.qtstyleplugin-kvantum
     ripgrep
     zathura
-    fish
     st
     obsidian
     unzip
     helix
     git
-    dash
+    nushell
     r-with-my-pkgs
     rstudio-with-my-pkgs
     neofetch
     firefox
     vivaldi
-    vscodium
     mpv
     bitwarden
-    cmatrix    
-    ];
-
+    cmatrix
+    (vscode-with-extensions.override {
+      vscode = vscodium;
+      vscodeExtensions = with vscode-extensions; [
+        bbenoist.nix
+        ms-python.python
+        ms-azuretools.vscode-docker
+        ms-vscode-remote.remote-ssh
+        esbenp.prettier-vscode
+      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "remote-ssh-edit";
+          publisher = "ms-vscode-remote";
+          version = "0.47.2";
+          sha256 = "1hp6gjh4xp2m1xlm1jsdzxw9d8frkiidhph6nvl24d0h8z34w49g";
+         }
+        {
+          name = "nimvscode";
+          version = "0.1.26";
+          publisher = "nimsaem";
+          sha256 = "unxcnQR2ccsydVG3H13e+xYRnW+3/ArIuBt0HlCLKio=";
+        }
+      ];
+    }) 
+  ];
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.mtr.enable = true;
@@ -215,7 +246,7 @@
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
   environment.shells = with pkgs; [ fish ];
-  environment.binsh = "${pkgs.dash}/bin/dash";
+  environment.binsh = "${pkgs.bash}/bin/bash";
 
   # fonts
   fonts.fonts = with pkgs; [
