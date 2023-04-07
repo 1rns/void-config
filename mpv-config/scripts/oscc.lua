@@ -3,11 +3,6 @@ local msg = require 'mp.msg'
 local opt = require 'mp.options'
 local utils = require 'mp.utils'
 
-function seek_handler()
-    show_osc()
-end
-mp.register_event("seek", seek_handler)
-
 --
 -- Parameters
 --
@@ -20,15 +15,15 @@ local user_opts = {
     scalefullscreen = 1,        -- scaling of the controller when fullscreen
     scaleforcedwindow = 2,      -- scaling when rendered on a forced window
     vidscale = false,            -- scale the controller with the video?
-    barmargin = -15,              -- vertical margin of top/bottombar
-    boxalpha = 50,              -- alpha of the background box,
+    barmargin = -20,              -- vertical margin of top/bottombar
+    boxalpha = 0,              -- alpha of the background box,
                                 -- 0 (opaque) to 255 (fully transparent)
     seekbaralpha = 228,
     disabledbtnsalpha = 228,
-    hidetimeout = 3000,          -- duration in ms until the OSC hides if no
+    hidetimeout = 3500,          -- duration in ms until the OSC hides if no
                                 -- mouse movement. enforced non-negative for the
                                 -- user, but internally negative is "always-on".
-    fadeduration = 25,         -- duration of fade out in ms, 0 = no fade
+    fadeduration = 60,         -- duration of fade out in ms, 0 = no fade
     deadzonesize = 0,         -- size of deadzone
     minmousemove = 0,           -- minimum amount of pixels the mouse has to
                                 -- move between ticks to make the OSC show up
@@ -1216,8 +1211,7 @@ function bar_layout(direction)
     lo.style = osc_styles.timecodesBar
 
     -- Cache
-    geo = { x = geo.x + geo.w + marg_s, y = geo.y,
-            an = geo.an, w = 0, h = 0 }
+    geo = { x = geo.x + geo.w + marg_s, y = geo.y, an = geo.an, w = 0, h = 0 }
     lo = add_layout("cache")
     lo.geometry = geo
     lo.style = osc_styles.timecodesBar

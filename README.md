@@ -21,6 +21,7 @@
     - https://github.com/marzzzello/mpv_thumbnail_script
     - https://github.com/Eisa01/mpv-scripts#smartcopypaste
     - https://github.com/jonniek/mpv-playlistmanager
-
+    - https://raw.githubusercontent.com/mpv-player/mpv/master/etc/mpv.conf
+    - https://raw.githubusercontent.com/mpv-player/mpv/master/etc/input.conf
 - [ ] put all config under dotfiles/
 - [ ] add documentation
