@@ -16,5 +16,11 @@
   - [ ] settle on a consistent file structure
 - [ ] find potplayer alternative
   - [ ] setup mpv config
+    - [ ] fix thumbfast network issues
+    - https://github.com/CogentRedTester/mpv-file-browser
+    - https://github.com/marzzzello/mpv_thumbnail_script
+    - https://github.com/Eisa01/mpv-scripts#smartcopypaste
+    - https://github.com/jonniek/mpv-playlistmanager
+
 - [ ] put all config under dotfiles/
 - [ ] add documentation
