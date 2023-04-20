@@ -10,36 +10,28 @@
       ./hardware-configuration.nix
     ];
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-21.4.0"
+  ];
+
+  nix.gc = {
+    automatic = true;
+    randomizedDelaySec = "14m";
+    options = "--delete-older-than 10d";
+  };
+  
   # Bootloader
     # systemd
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  
-    # grub
-  #boot.loader = {
-  #  efi = {
-  #    canTouchEfiVariables = true;
-  #    efiSysMountPoint = "/boot/efi";
-  #  };
-  #  grub = {
-  #    enable = true;
-  #    version = 2;
-  #    efiSupport = true;
-  #    devices = [ "nodev" ];
-  #    useOSProber = true;
-  #  };
-  #};
 
-  # unstable fix (maybe) nope
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
   hardware.bumblebee = {
     enable = true;
     pmMethod = "none";
   };
   
-  
-  boot.cleanTmpDir = true;
+  boot.tmp.cleanOnBoot = true;
   boot.supportedFilesystems = [ "ntfs" ];
   # Setup keyfile
   boot.initrd.secrets = {
@@ -49,7 +41,7 @@
   # Enable swap on luks
   boot.initrd.luks.devices."luks-45d017f2-4c39-4676-937c-e922f533638d".device = "/dev/disk/by-uuid/45d017f2-4c39-4676-937c-e922f533638d";
   boot.initrd.luks.devices."luks-45d017f2-4c39-4676-937c-e922f533638d".keyFile = "/crypto_keyfile.bin";
-
+  
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -80,7 +72,26 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  services.power-profiles-daemon.enable = false;
+  services.tlp = {
+    enable = true;
+    settings = {
+      CPU_SCALING_GOVERNOR_ON_BAT="powersave";
+      CPU_SCALING_GOVERNOR_ON_AC="powersave";
 
+      # The following prevents the battery from charging fully to
+      # preserve lifetime. Run `tlp fullcharge` to temporarily force
+      # full charge.
+      # https://linrunner.de/tlp/faq/battery.html#how-to-choose-good-battery-charge-thresholds
+      START_CHARGE_THRESH_BAT0=40;
+      STOP_CHARGE_THRESH_BAT0=50;
+
+      # 100 being the maximum, limit the speed of my CPU to reduce
+      # heat and increase battery usage:
+      CPU_MAX_PERF_ON_AC=75;
+      CPU_MAX_PERF_ON_BAT=60;
+    };
+  };
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
@@ -107,12 +118,15 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+  
   # Enable sound with pipewire.
   sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  hardware.pulseaudio.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
-    enable = true;
+    enable = false;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
@@ -141,11 +155,13 @@
   users.users.lxvrns = {
     isNormalUser = true;
     description = "L";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "docker networkmanager" "wheel" ];
     packages = with pkgs; [
       #
    ];
   };
+
+  virtualisation.docker.enable = true;
 
   # Enable automatic login for the user.
   #services.xserver.displayManager.autoLogin.enable = true;
@@ -169,23 +185,27 @@
         packages = with rPackages; 
           [ quarto patchwork visdat simputation VIM  pandoc skimr ggplot2 dplyr tidyverse rmarkdown knitr ];
        };
-      my-python-packages = ps: with ps; [
-        pandas
-        nltk
-        openai
-      ];
+#      my-python-packages = ps: with ps; [
+#      
+#      ];
     in
    [
   #syspkgs
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    google-chrome
+    aria
+    renameutils
+    ffmpeg_6-full
+    discord
+    geeqie
+    kfind
     polkit
     uhk-agent
     lsof
     file
     texlive.combined.scheme-full
     falkon
-    (python3.withPackages my-python-packages)
+    #(python3.withPackages my-python-packages)
     pandoc
     rofi
     fd
@@ -232,6 +252,12 @@
           publisher = "nimsaem";
           sha256 = "unxcnQR2ccsydVG3H13e+xYRnW+3/ArIuBt0HlCLKio=";
         }
+        {
+          name = "sequoia";
+          version = "0.10.0";
+          publisher = "wicked-labs";
+          sha256 = "sha256-nZirPixORjmRXNCGtoADo+Sd4CNGxHG6c3QfCLZUKlM=";
+        }
       ];
     }) 
   ];
@@ -272,11 +298,7 @@ fonts.fontconfig = {
   hinting.autohint = true;
   hinting.style = "hintfull";
 };
-fonts.fontconfig.defaultFonts = {
-  serif = [ "Source Serif Pro" ];
-  sansSerif = [ "Source Sans Pro" ];
-  monospace = [ "Ubuntu Mono" ];
-};
+fonts.enableDefaultFonts = true;
 
 fonts.fontconfig.subpixel = {
   rgba = "rgb";
@@ -287,7 +309,7 @@ fonts.fontconfig.subpixel = {
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  #services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

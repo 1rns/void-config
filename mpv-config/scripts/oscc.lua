@@ -2414,7 +2414,7 @@ end
 validate_user_opts()
 update_duration_watch()
 
-mp.register_event("seek", show_osc) -- edited
+-- mp.register_event("seek", show_osc) -- edit by nimu
 mp.register_event("shutdown", shutdown)
 mp.register_event("start-file", request_init)
 mp.observe_property("track-list", nil, request_init)
