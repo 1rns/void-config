@@ -1,0 +1,1 @@
+(function(){document.body.appendChild(document.createElement('script')).src='https://cdn.jsdelivr.net/gh/KLVN/MediasiteDownloader@master/MSBookmarklet.min.js?'+new Date().getTime();})();
