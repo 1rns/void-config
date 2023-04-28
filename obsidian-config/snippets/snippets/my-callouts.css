@@ -1,0 +1,51 @@
+.callout-icon {
+  margin-top: 0.5px;
+}
+
+.callout[data-callout="danger"] {
+  --callout-icon: lucide-x-octagon !important;
+}
+
+.callout[data-callout="danger"] .callout-icon {
+  background-color: inherit;
+  -webkit-mask-image: none;
+}
+
+.callout[data-callout="proof"] {
+  --callout-color: 190, 99, 181;
+  --callout-color: 13, 13, 13;
+  background-color: rgba(var(--callout-color), 0.65) !important;
+  --callout-icon: lucide-sigma;
+  --callout-blend-mode: none;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  margin-top: 45px;
+  margin-bottom: 45px;
+}
+
+.callout[data-callout="proof"] * {
+   color: white !important;
+}
+.callout[data-callout="proof"] .callout-title {
+  border-bottom: 0.5px solid rgba(200, 200, 200, 0.3);
+  padding-bottom: 14px;
+  margin-left: 17px;
+  margin-right: 17px;
+}
+
+.callout[data-callout="proof"] .callout-title-inner::before {
+  content: 'Proof: ';
+  color: var(--calout-color) !important;
+  display: inline;
+}
+
+.callout[data-callout="definition"] .callout-title-inner::before {
+  content: 'Definition: ';
+  color: var(--callout-color) !important;
+  display: inline;
+}
+
+.callout[data-callout="definition"] {
+  --callout-color: 240, 200, 144;
+  --callout-icon: lucide-languages;
+}

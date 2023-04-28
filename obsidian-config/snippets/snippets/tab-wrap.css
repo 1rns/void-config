@@ -1,0 +1,20 @@
+/* tab overflow-wrap */
+
+.workspace .mod-root .workspace-tab-header-container {
+  display: table;
+}
+
+.workspace .mod-root .workspace-tab-header-container-inner {
+  flex-wrap: wrap;
+}
+
+.workspace .mod-root .workspace-tab-header {
+    flex: none !important;
+}
+
+.titlebar .workspace-tab-header-tab-list,
+.titlebar .workspace-tab-header-new-tab,
+.mod-root .workspace-tab-header-tab-list,
+.mod-root .workspace-tab-header-new-tab {
+    display: table-cell;
+}
