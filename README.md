@@ -5,6 +5,7 @@
   - [ ] encrypt files before pushing home dir
   - [ ] move system config file into repo
   - [ ] make scripts for build
+  - [ ] clean up configuration.nix spaghetti
 - [ ] unify keybinds across most commonly used programs
   - [ ] change helix keybinds
   - [ ] move settings to vscodium
