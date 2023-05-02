@@ -1,0 +1,73 @@
+@keyframes cm-blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+body.fancy-cursor .markdown-source-view.mod-cm6 .cm-content,
+body .markdown-source-view.mod-cm6 .cm-content,
+body.fancy-cursor .mod-cm6 .cm-line {
+  /*caret-color: var(--text-accent);*/
+}
+
+/* iAWriter-ish style. The cursor colour in a light theme */
+.theme-light .x-cursor {
+    opacity: 1;
+    background: #00bbff;
+    width: 4px;
+    left: -1px;
+    top: -2px;
+    height: calc(6px + var(--cursor-height));
+    transition: opacity;
+    top: calc( -6px - var(--header-height));
+}
+
+/* iAWriter-ish style. The cursor colour in a dark theme */
+.theme-dark .x-cursor {
+    opacity: 1;
+    background: #049ba3;
+    width: 1.9px;
+    box-shadow: 0 0 45px 4px #049ba398;
+    /* box-shadow: 0 0 40px #0cf,0 0 10px #0cf; */
+    left: 0.25px;
+    height: calc(4px + var(--cursor-height));
+    transition: opacity;
+    top: calc(-3px - var(--header-height));
+}
+.cm-editor *,
+.horizontal-main-container {
+    caret-color: transparent !important;
+}
+
+/* Disable movement effect */
+.cursorWrapper .x-cursor::after {
+  display: none;
+}
+
+/* Blinking */
+.cursorWrapper .x-cursor0,
+.cursorWrapper .x-cursor1 {
+    animation: ease blink1 1s infinite;
+    animation-delay: 1.85s;
+}
+
+@keyframes blink1 {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+

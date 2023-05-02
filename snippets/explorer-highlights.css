@@ -1,0 +1,10 @@
+.nav-folder:has(> .nav-folder-children > .nav-file > .is-active):not(.mod-root) {
+  background-color: #24312B;
+}
+
+
+.nav-file > .is-active {
+  background-color: #131f1985;
+  border-right: 5px solid #59937750;
+  border-radius: 0 !important;
+}
