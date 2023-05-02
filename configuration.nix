@@ -73,7 +73,6 @@
     enable = true;
     settings = {
       CPU_SCALING_GOVERNOR_ON_BAT="powersave";
-      CPU_SCALING_GOVERNOR_ON_AC="powersave";
 
       # The following prevents the battery from charging fully to
       # preserve lifetime. Run `tlp fullcharge` to temporarily force
@@ -84,7 +83,6 @@
 
       # 100 being the maximum, limit the speed of my CPU to reduce
       # heat and increase battery usage:
-      CPU_MAX_PERF_ON_AC=75;
       CPU_MAX_PERF_ON_BAT=60;
     };
   };
@@ -135,8 +133,48 @@
   };
   
   # NVIDIA
-  services.xserver.videoDrivers = [ "modesetting" ];
-  #hardware.opengl.enable = true;
+  hardware.nvidia.powerManagement.enable = true;
+  services.xserver = {
+    videoDrivers = [ "nvidia" ];
+    config = ''
+      Section "Device"
+          Identifier  "Intel Graphics"
+          Driver      "intel"
+          #Option      "AccelMethod"  "sna" # default
+          #Option      "AccelMethod"  "uxa" # fallback
+          Option      "TearFree"        "true"
+          Option      "SwapbuffersWait" "true"
+          BusID       "PCI:0:2:0"
+          #Option      "DRI" "2"             # DRI3 is now default
+      EndSection
+
+      Section "Device"
+          Identifier "nvidia"
+          Driver "nvidia"
+          BusID "PCI:1:0:0"
+          Option "AllowEmptyInitialConfiguration"
+      EndSection
+    '';
+    screenSection = ''
+      Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
+      Option         "AllowIndirectGLXProtocol" "off"
+      Option         "TripleBuffer" "on"
+    '';
+  };
+    hardware.nvidia.prime = {
+    # Sync Mode
+    sync.enable = true;
+    # Offload Mode
+    #offload.enable = true;
+
+    # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
+    nvidiaBusId = "PCI:1:0:0";
+
+    # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
+    intelBusId = "PCI:0:2:0";
+  };
+  hardware.nvidia.modesetting.enable = true;
+  hardware.opengl.enable = true;
 
   services.udev.extraRules = ''
     SUBSYSTEM=="input", GROUP="input", MODE="0666"
