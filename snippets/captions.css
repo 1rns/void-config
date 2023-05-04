@@ -1,0 +1,6 @@
+.image-captions-figure,
+.image-captions-figure > * {
+  background: none !important;
+  font-style: italic;
+  
+}
