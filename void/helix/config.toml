@@ -1,0 +1,7 @@
+# At most one section each of 'keys.normal', 'keys.insert' and 'keys.select'
+[keys.normal]
+C-s = ":w" # Maps Ctrl-s to the typable command :w which is an alias for :write (save file)
+";" = "insert_mode"     # Maps Alt-X to enter normal mode
+
+[editor.cursor-shape]
+insert = "bar"
